@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reservation extends Model
+class Reserva extends Model
 {
     protected $fillable = ['user_id', 'vehicle_id'];
 
-    // Relacionamento com o modelo User
+    // Relação com o usuário
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relacionamento com o modelo Vehicle
-    public function vehicle()
+    // Relação com o veículo
+    public function veiculo()
     {
-        return $this->belongsTo(Vehicle::class);
+        return $this->belongsTo(Veiculo::class, 'vehicle_id');
     }
 }

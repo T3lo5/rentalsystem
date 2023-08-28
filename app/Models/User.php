@@ -9,33 +9,19 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'phone', 'address', 'role'];
-
-    protected $hidden = ['password', 'remember_token'];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $fillable = [
+        'name', 'email', 'password', 'phone', 'address', 'role'
     ];
 
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-    public function isClient()
+    // Relação com as reservas
+    public function reservas()
     {
-        return $this->role === 'client';
-    }
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
-
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
+        return $this->hasMany(Reserva::class);
     }
 }
